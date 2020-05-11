@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Header from './components/Header';
-import Login from './pages/Login';
-
+import Router from './routes';
 import './assets/scss/main.scss';
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
     <Provider store={store}>
       <Header title="Be The Hero!" />
       <main>
-        <Login />
+        <Router />
       </main>
     </Provider>
   );
