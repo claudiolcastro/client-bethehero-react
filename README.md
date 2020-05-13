@@ -1,4 +1,6 @@
-# Be The Hero (by Rocketseat)
+React | Redux | Duck | Styled Components
+
+# Be The Hero
  - Project focusing on studies
 
 ## Available Scripts
