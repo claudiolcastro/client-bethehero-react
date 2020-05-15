@@ -1,19 +1,21 @@
+import axios from 'axios';
+
 // Action Types
 
 export const Types = {
-  ADD_NAME: 'add_name',
+  ADD_ONG_INCIDENTS: 'add_ong_incidents',
 };
 
 // Reducer
 
 const initialState = {
-  name: 'Insert your name..',
+  ongIncidents: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case Types.ADD_NAME:
-      return { name: action.payload };
+    case Types.ADD_ONG_INCIDENTS:
+      return { ongIncidents: [...state.ongIncidents, ...action.payload] };
     default:
       return state;
   }
@@ -21,7 +23,17 @@ export default (state = initialState, action) => {
 
 // Action Creators
 
-export const addName = (name) => ({
-  type: Types.ADD_NAME,
-  payload: name,
-});
+export const fetchOngIncidents = (id) => (dispatch) => {
+  axios.get('http://localhost:3333/profile', {
+    headers: {
+      Authorization: id,
+    },
+  })
+    .then((response) => {
+      dispatch({
+        type: Types.ADD_ONG_INCIDENTS,
+        payload: response.data,
+      });
+    })
+    .catch((error) => console.error(error));
+};
