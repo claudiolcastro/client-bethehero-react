@@ -9,6 +9,6 @@ const reducers = combineReducers({
   profile: profileReducer,
 });
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;
