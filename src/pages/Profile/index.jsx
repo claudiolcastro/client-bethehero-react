@@ -19,7 +19,7 @@ function Profile({
 
   function renderIncidents() {
     return incidents.map((incident) => (
-      <li>
+      <li key={incident.id}>
         <strong>CASO:</strong>
         <p>{incident.title}</p>
 
@@ -30,7 +30,7 @@ function Profile({
         <p>
           R$
           {' '}
-          {incident.value}
+          {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}
         </p>
 
         <button type="button">
