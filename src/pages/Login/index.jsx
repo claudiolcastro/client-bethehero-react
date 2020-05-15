@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,8 +11,15 @@ import { Container, FormSection } from './styles';
 import logoImg from '../../assets/images/logo.svg';
 import herosImg from '../../assets/images/heroes.png';
 
-function Login({ submitLogin }) {
+function Login({ isAuth, submitLogin }) {
+  const history = useHistory();
   const [id, setId] = useState(null);
+
+  useEffect(() => {
+    if (isAuth) {
+      history.push('/profile');
+    }
+  });
 
   function handleLogin(e) {
     e.preventDefault();
