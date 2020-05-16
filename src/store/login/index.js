@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // Action Types
 
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
 export const loginUser = (id) => (dispatch) => {
   axios.post('http://localhost:3333/login', { id })
     .then((response) => {
+      Cookies.set('ong_id', id);
       dispatch({
         type: Types.LOGIN_USER,
         payload: { id, name: response.data.name },

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { FiLogIn } from 'react-icons/fi';
 import { loginUser } from '../../store/login';
@@ -11,9 +10,13 @@ import { Container, FormSection } from './styles';
 import logoImg from '../../assets/images/logo.svg';
 import herosImg from '../../assets/images/heroes.png';
 
-function Login({ isAuth, submitLogin }) {
+export default function Login() {
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const [id, setId] = useState(null);
+
+  const isAuth = useSelector((state) => state.login.isAuthenticated);
 
   useEffect(() => {
     if (isAuth) {
@@ -23,7 +26,7 @@ function Login({ isAuth, submitLogin }) {
 
   function handleLogin(e) {
     e.preventDefault();
-    submitLogin(id);
+    dispatch(loginUser(id));
   }
 
   return (
@@ -48,12 +51,3 @@ function Login({ isAuth, submitLogin }) {
     </Container>
   );
 }
-
-const mapStateToProps = (state) => ({
-  isAuth: state.login.isAuthenticated,
-  ongName: state.login.ongName,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({ submitLogin: loginUser }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);

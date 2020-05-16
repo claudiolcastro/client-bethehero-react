@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
@@ -14,7 +15,8 @@ function Profile({
   id, ongName, incidents, listIncidents,
 }) {
   useEffect(() => {
-    listIncidents(id);
+    const sessionId = id || Cookies.get('ong_id');
+    listIncidents(sessionId);
   }, []);
 
   function renderIncidents() {
@@ -28,7 +30,6 @@ function Profile({
 
         <strong>VALOR:</strong>
         <p>
-          R$
           {' '}
           {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}
         </p>
@@ -64,6 +65,9 @@ function Profile({
     </Container>
   );
 }
+
+
+// Connecting redux without Hooks (for studing)
 
 const mapStateToProps = (state) => ({
   id: state.login.id,
