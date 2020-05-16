@@ -22,28 +22,6 @@ export default function Profile() {
     dispatch(fetchOngIncidents(id));
   }, [id]);
 
-  function renderIncidents() {
-    return incidents.map((incident) => (
-      <li key={incident.id}>
-        <strong>CASO:</strong>
-        <p>{incident.title}</p>
-
-        <strong>DESCRIÇÃO:</strong>
-        <p>{incident.description}</p>
-
-        <strong>VALOR:</strong>
-        <p>
-          {' '}
-          {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}
-        </p>
-
-        <button type="button">
-          <FiTrash2 size={20} color="#a8a8b3" />
-        </button>
-      </li>
-    ));
-  }
-
   return (
     <Container>
       <header>
@@ -63,7 +41,27 @@ export default function Profile() {
       <h1>Casos cadastrados</h1>
 
       <List>
-        {renderIncidents()}
+        {
+          incidents.map((incident) => (
+            <li key={incident.id}>
+              <strong>CASO:</strong>
+              <p>{incident.title}</p>
+
+              <strong>DESCRIÇÃO:</strong>
+              <p>{incident.description}</p>
+
+              <strong>VALOR:</strong>
+              <p>
+                {' '}
+                {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}
+              </p>
+
+              <button type="button">
+                <FiTrash2 size={20} color="#a8a8b3" />
+              </button>
+            </li>
+          ))
+        }
       </List>
     </Container>
   );
