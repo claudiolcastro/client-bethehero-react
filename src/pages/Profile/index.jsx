@@ -1,23 +1,26 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Cookies from 'js-cookie';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
+import useAuthenticated from '../../hooks/useAuthenticated';
 
 import { Container, List } from './styles';
 
 import logoImg from '../../assets/images/logo.svg';
 
-function Profile({
-  id, ongName, incidents, listIncidents,
-}) {
+export default function Profile() {
+  useAuthenticated();
+
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.login.id);
+  const ongName = useSelector((state) => state.login.ongName);
+  const incidents = useSelector((state) => state.profile.ongIncidents);
+
   useEffect(() => {
-    const sessionId = id || Cookies.get('ong_id');
-    listIncidents(sessionId);
-  }, []);
+    dispatch(fetchOngIncidents(id));
+  }, [id]);
 
   function renderIncidents() {
     return incidents.map((incident) => (
@@ -65,20 +68,3 @@ function Profile({
     </Container>
   );
 }
-
-
-// Connecting redux without Hooks (for studing)
-
-const mapStateToProps = (state) => ({
-  id: state.login.id,
-  ongName: state.login.ongName,
-  incidents: state.profile.ongIncidents,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  { listIncidents: fetchOngIncidents },
-  dispatch,
-);
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
