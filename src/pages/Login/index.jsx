@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { FiLogIn } from 'react-icons/fi';
 import { loginUser } from '../../store/login';
+import useAuthenticated from '../../hooks/useAuthenticated';
 
 import { Container, FormSection } from './styles';
 
@@ -11,6 +12,8 @@ import logoImg from '../../assets/images/logo.svg';
 import herosImg from '../../assets/images/heroes.png';
 
 export default function Login() {
+  useAuthenticated(true);
+
   const history = useHistory();
   const dispatch = useDispatch();
 

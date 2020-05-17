@@ -6,20 +6,20 @@ import Cookies from 'js-cookie';
 import { loginUser } from '../store/login';
 
 
-export default function useAuthenticated() {
+export default function useAuthenticated(loginPage = false) {
   const dispatch = useDispatch();
   const history = useHistory();
   const isAuth = useSelector((state) => state.login.isAuthenticated);
 
+  // TODO: improve Auth logic
   useEffect(() => {
     if (!isAuth) {
       const ongIdCookie = Cookies.get('ong_id');
-      if (ongIdCookie) {
-        return dispatch(loginUser(ongIdCookie));
-      }
-      return history.push('/');
-    }
 
-    return true;
-  }, []);
+      if (ongIdCookie) {
+        dispatch(loginUser(ongIdCookie));
+        if (!isAuth) history.push('/');
+      } else { history.push('/'); }
+    } else if (loginPage) history.push('/profiles');
+  }, [isAuth]);
 }

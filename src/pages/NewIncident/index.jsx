@@ -4,10 +4,12 @@ import axios from 'axios';
 
 import { FiArrowLeft } from 'react-icons/fi';
 import { Container } from './styles';
+import useAuthenticated from '../../hooks/useAuthenticated';
 
 import logoImg from '../../assets/images/logo.svg';
 
 export default function NewIncident() {
+  useAuthenticated();
   const history = useHistory();
 
   const [title, setTitle] = useState('');
