@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
 // Action Creators
 
 export const loginUser = (id) => (dispatch) => {
+  console.log('ACTION LOGIN');
   axios.post('http://localhost:3333/login', { id })
     .then((response) => {
       Cookies.set('ong_id', id);

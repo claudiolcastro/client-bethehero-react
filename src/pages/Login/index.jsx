@@ -12,7 +12,7 @@ import logoImg from '../../assets/images/logo.svg';
 import herosImg from '../../assets/images/heroes.png';
 
 export default function Login() {
-  useAuthenticated(true);
+  useAuthenticated();
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function Login() {
     if (isAuth) {
       history.push('/profile');
     }
-  });
+  }, [isAuth]);
 
   function handleLogin(e) {
     e.preventDefault();

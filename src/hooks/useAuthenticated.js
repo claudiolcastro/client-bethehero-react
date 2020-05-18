@@ -1,25 +1,29 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
 import { loginUser } from '../store/login';
 
 
-export default function useAuthenticated(loginPage = false) {
+export default function useAuthenticated() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const isAuth = useSelector((state) => state.login.isAuthenticated);
 
-  // TODO: improve Auth logic
-  useEffect(() => {
-    if (!isAuth) {
-      const ongIdCookie = Cookies.get('ong_id');
+  const stateAuth = useSelector((state) => state.login.isAuthenticated);
+  const cookieId = Cookies.get('ong_id');
+  let isAuthenticated = false;
 
-      if (ongIdCookie) {
-        dispatch(loginUser(ongIdCookie));
-        if (!isAuth) history.push('/');
-      } else { history.push('/'); }
-    } else if (loginPage) history.push('/profiles');
-  }, [isAuth]);
+  const handleCookieAuth = () => {
+    dispatch(loginUser(cookieId));
+  };
+
+  if (stateAuth) {
+    isAuthenticated = true;
+  }
+
+  if (!stateAuth && cookieId) {
+    handleCookieAuth();
+    isAuthenticated = stateAuth;
+  }
+
+  return isAuthenticated;
 }

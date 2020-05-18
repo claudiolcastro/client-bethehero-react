@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
@@ -14,11 +14,19 @@ export default function Profile() {
   useAuthenticated();
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
+  const isAuth = useSelector((state) => state.login.isAuthenticated);
+
   const id = useSelector((state) => state.login.id);
   const ongName = useSelector((state) => state.login.ongName);
   const incidents = useSelector((state) => state.profile.ongIncidents);
 
   useEffect(() => {
+    if (!isAuth) {
+      history.push('/');
+    }
+
     dispatch(fetchOngIncidents(id));
   }, [id]);
 
