@@ -15,6 +15,7 @@ export default function NewIncident() {
 
   const history = useHistory();
   const isAuth = useSelector((state) => state.login.isAuthenticated);
+  const ongId = useSelector((state) => state.login.id);
 
   useEffect(() => {
     if (!isAuth) {
@@ -38,7 +39,7 @@ export default function NewIncident() {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'a521001a', // TODO: add dinamic id
+          Authorization: ongId,
         },
       })
         .then(() => history.push('/profile'));

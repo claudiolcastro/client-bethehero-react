@@ -15,7 +15,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case Types.ADD_ONG_INCIDENTS:
-      return { ongIncidents: [...state.ongIncidents, ...action.payload] };
+      return { ongIncidents: [...action.payload] };
     default:
       return state;
   }

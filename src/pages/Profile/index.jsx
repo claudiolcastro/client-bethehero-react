@@ -28,7 +28,7 @@ export default function Profile() {
     }
 
     dispatch(fetchOngIncidents(id));
-  }, [id]);
+  }, []);
 
   return (
     <Container>
