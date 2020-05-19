@@ -18,7 +18,7 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(fetchOngIncidents(id));
-  }, []);
+  }, [id]);
 
   return (
     <Container>

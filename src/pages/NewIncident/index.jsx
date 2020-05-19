@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -6,23 +6,12 @@ import axios from 'axios';
 
 import { FiArrowLeft } from 'react-icons/fi';
 import { Container } from './styles';
-import useAuthenticated from '../../hooks/useAuthenticated';
 
 import logoImg from '../../assets/images/logo.svg';
 
 export default function NewIncident() {
-  useAuthenticated();
-
   const history = useHistory();
-  const isAuth = useSelector((state) => state.login.isAuthenticated);
   const ongId = useSelector((state) => state.login.id);
-
-  useEffect(() => {
-    if (!isAuth) {
-      history.push('/');
-    }
-  }, [isAuth]);
-
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

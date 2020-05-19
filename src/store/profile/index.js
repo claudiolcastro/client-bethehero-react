@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
 // Action Creators
 
 export const fetchOngIncidents = (id) => (dispatch) => {
+  console.log('FETCH INCIDENTS: ', id);
   axios.get('http://localhost:3333/profile', {
     headers: {
       Authorization: id,
