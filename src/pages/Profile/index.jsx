@@ -1,32 +1,22 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
-import useAuthenticated from '../../hooks/useAuthenticated';
 
 import { Container, List } from './styles';
 
 import logoImg from '../../assets/images/logo.svg';
 
 export default function Profile() {
-  useAuthenticated();
-
   const dispatch = useDispatch();
-
-  const history = useHistory();
-  const isAuth = useSelector((state) => state.login.isAuthenticated);
 
   const id = useSelector((state) => state.login.id);
   const ongName = useSelector((state) => state.login.ongName);
   const incidents = useSelector((state) => state.profile.ongIncidents);
 
   useEffect(() => {
-    if (!isAuth) {
-      history.push('/');
-    }
-
     dispatch(fetchOngIncidents(id));
   }, []);
 
