@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
+import { logoutUser } from '../../store/login';
 
 import { Container, List } from './styles';
 
@@ -12,6 +13,7 @@ import logoImg from '../../assets/images/logo.svg';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const ongId = useSelector((state) => state.login.id);
   const ongName = useSelector((state) => state.login.ongName);
@@ -33,6 +35,11 @@ export default function Profile() {
       });
   };
 
+  const handleLogOut = () => {
+    dispatch(logoutUser());
+    history.push('/');
+  };
+
   return (
     <Container>
       <header>
@@ -44,7 +51,7 @@ export default function Profile() {
         </span>
 
         <Link className="button" to="/incidents/new">Cadastrar novo caso</Link>
-        <button type="button">
+        <button type="button" onClick={() => handleLogOut()}>
           <FiPower size={18} color="#E02041" />
         </button>
       </header>

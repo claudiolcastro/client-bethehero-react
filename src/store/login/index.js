@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 export const Types = {
   LOGIN_USER: 'login_user',
+  LOGOUT_USER: 'logout_user',
 };
 
 // Reducer
@@ -19,6 +20,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case Types.LOGIN_USER:
       return { isAuthenticated: true, id: action.payload.id, ongName: action.payload.name };
+    case Types.LOGOUT_USER:
+      return { isAuthenticated: false, id: null, ongName: null };
     default:
       return state;
   }
@@ -36,4 +39,13 @@ export const loginUser = (id) => (dispatch) => {
       });
     })
     .catch((e) => console.error(e));
+};
+
+export const logoutUser = () => {
+  Cookies.remove('ong_id');
+
+  return {
+    type: Types.LOGOUT_USER,
+    payload: {},
+  };
 };
