@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
@@ -12,13 +13,25 @@ import logoImg from '../../assets/images/logo.svg';
 export default function Profile() {
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.login.id);
+  const ongId = useSelector((state) => state.login.id);
   const ongName = useSelector((state) => state.login.ongName);
   const incidents = useSelector((state) => state.profile.ongIncidents);
 
   useEffect(() => {
-    dispatch(fetchOngIncidents(id));
-  }, [id]);
+    dispatch(fetchOngIncidents(ongId));
+  }, [ongId]);
+
+  const handleDeleteIncident = async (incidentId) => {
+    await axios.delete(`http://localhost:3333/incidents/${incidentId}`, {
+      headers: {
+        Authorization: ongId,
+      },
+    })
+      .then((response) => {
+        dispatch(fetchOngIncidents(ongId));
+        return response.status;
+      });
+  };
 
   return (
     <Container>
@@ -54,7 +67,7 @@ export default function Profile() {
                 {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}
               </p>
 
-              <button type="button">
+              <button type="button" onClick={() => handleDeleteIncident(incident.id)}>
                 <FiTrash2 size={20} color="#a8a8b3" />
               </button>
             </li>
