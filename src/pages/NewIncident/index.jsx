@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import axios from 'axios';
-
 import { FiArrowLeft } from 'react-icons/fi';
+import { createNewIncidentAPI } from '../../services/api';
+
 import { Container } from './styles';
 
 import logoImg from '../../assets/images/logo.svg';
@@ -21,17 +21,8 @@ export default function NewIncident() {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:3333/incidents', {
-        title,
-        description,
-        value,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: ongId,
-        },
-      })
-        .then(() => history.push('/profile'));
+      await createNewIncidentAPI(ongId, title, description, value);
+      history.push('/profile');
     } catch (err) {
       alert('Erro ao cadastrar o caso.');
     }

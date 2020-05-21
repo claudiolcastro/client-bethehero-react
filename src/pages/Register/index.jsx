@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import { FiArrowLeft } from 'react-icons/fi';
+import { createNewOngAPI } from '../../services/api';
+
 import { Container } from './styles';
 
 import logoImg from '../../assets/images/logo.svg';
@@ -20,18 +21,10 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:3333/ongs', {
-        name,
-        email,
-        whatsapp,
-        city,
-        uf,
-      }, {
-      })
-        .then((resp) => {
-          history.push('/');
-          alert(`Cadastro realizado! Seu ID para Login é: ${resp.data.id}`);
-        });
+      const newOng = await createNewOngAPI(name, email, whatsapp, city, uf);
+
+      history.push('/');
+      alert(`Cadastro realizado! Seu ID para Login é: ${newOng}`);
     } catch (err) {
       alert('Erro ao cadastrar o Ong.');
     }

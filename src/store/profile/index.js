@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetchOngIncidentsAPI } from '../../services/api';
 
 // Action Types
 
@@ -23,17 +23,11 @@ export default (state = initialState, action) => {
 
 // Action Creators
 
-export const fetchOngIncidents = (id) => (dispatch) => {
-  axios.get('http://localhost:3333/profile', {
-    headers: {
-      Authorization: id,
-    },
-  })
-    .then((response) => {
-      dispatch({
-        type: Types.ADD_ONG_INCIDENTS,
-        payload: response.data,
-      });
-    })
-    .catch((error) => console.error(error));
+export const fetchOngIncidents = (id) => async (dispatch) => {
+  const incidents = await fetchOngIncidentsAPI(id);
+
+  dispatch({
+    type: Types.ADD_ONG_INCIDENTS,
+    payload: incidents,
+  });
 };

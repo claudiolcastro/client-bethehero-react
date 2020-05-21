@@ -1,5 +1,6 @@
-import axios from 'axios';
 import Cookies from 'js-cookie';
+
+import { fetchUserSession } from '../../services/api';
 
 // Action Types
 
@@ -29,16 +30,14 @@ export default (state = initialState, action) => {
 
 // Action Creators
 
-export const loginUser = (id) => (dispatch) => {
-  axios.post('http://localhost:3333/login', { id })
-    .then((response) => {
-      Cookies.set('ong_id', id);
-      dispatch({
-        type: Types.LOGIN_USER,
-        payload: { id, name: response.data.name },
-      });
-    })
-    .catch((e) => console.error(e));
+export const loginUser = (id) => async (dispatch) => {
+  const loginData = await fetchUserSession(id);
+
+  Cookies.set('ong_id', id);
+  dispatch({
+    type: Types.LOGIN_USER,
+    payload: loginData,
+  });
 };
 
 export const logoutUser = () => {

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { fetchOngIncidents } from '../../store/profile';
 import { logoutUser } from '../../store/login';
+import { deleteIncidentAPI } from '../../services/api';
 
 import { Container, List } from './styles';
 
@@ -24,15 +24,8 @@ export default function Profile() {
   }, [ongId]);
 
   const handleDeleteIncident = async (incidentId) => {
-    await axios.delete(`http://localhost:3333/incidents/${incidentId}`, {
-      headers: {
-        Authorization: ongId,
-      },
-    })
-      .then((response) => {
-        dispatch(fetchOngIncidents(ongId));
-        return response.status;
-      });
+    await deleteIncidentAPI(ongId, incidentId);
+    dispatch(fetchOngIncidents(ongId));
   };
 
   const handleLogOut = () => {
