@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const fetchUserSession = (id) => axios.post('http://localhost:3333/login', { id })
+export const fetchUserSession = (id) => axios.post(`${process.env.REACT_APP_API_URL}/login`, { id })
   .then((response) => ({ id, name: response.data.name }))
   .catch((error) => ({ error }));
 
 export const createNewIncidentAPI = (ongId, title, description, value) => axios.post(
-  'http://localhost:3333/incidents',
+  `${process.env.REACT_APP_API_URL}/incidents`,
   {
     title,
     description,
@@ -22,7 +22,7 @@ export const createNewIncidentAPI = (ongId, title, description, value) => axios.
   .catch((error) => ({ error }));
 
 export const deleteIncidentAPI = (ongId, incidentId) => axios.delete(
-  `http://localhost:3333/incidents/${incidentId}`,
+  `${process.env.REACT_APP_API_URL}/incidents/${incidentId}`,
   {
     headers: {
       Authorization: ongId,
@@ -31,7 +31,7 @@ export const deleteIncidentAPI = (ongId, incidentId) => axios.delete(
 )
   .then((response) => response.status);
 
-export const fetchOngIncidentsAPI = (ongId) => axios.get('http://localhost:3333/profile', {
+export const fetchOngIncidentsAPI = (ongId) => axios.get(`${process.env.REACT_APP_API_URL}/profile`, {
   headers: {
     Authorization: ongId,
   },
@@ -40,7 +40,7 @@ export const fetchOngIncidentsAPI = (ongId) => axios.get('http://localhost:3333/
   .catch((error) => console.error(error));
 
 export const createNewOngAPI = (name, email, whatsapp, city, uf) => axios.post(
-  'http://localhost:3333/ongs',
+  `${process.env.REACT_APP_API_URL}/ongs`,
   {
     name,
     email,
