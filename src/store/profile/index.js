@@ -3,7 +3,7 @@ import { fetchOngIncidentsAPI } from '../../services/api';
 // Action Types
 
 export const Types = {
-  ADD_ONG_INCIDENTS: 'add_ong_incidents',
+  ADD_ONG_INCIDENTS: 'profile/ADD_ONG_INCIDENTS',
 };
 
 // Reducer

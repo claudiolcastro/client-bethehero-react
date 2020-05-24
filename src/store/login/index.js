@@ -5,8 +5,8 @@ import { fetchUserSession } from '../../services/api';
 // Action Types
 
 export const Types = {
-  LOGIN_USER: 'login_user',
-  LOGOUT_USER: 'logout_user',
+  LOGIN_USER: 'login/LOGIN_USER',
+  LOGOUT_USER: 'login/LOGOUT_USER',
 };
 
 // Reducer
