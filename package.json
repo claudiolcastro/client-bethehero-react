@@ -1,17 +1,13 @@
 {
   "name": "client-bethehero-react",
-
   "version": "0.1.0",
-
   "private": true,
-
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "lint": "eslint . --fix",
     "test": "node scripts/test.js"
   },
-
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
@@ -31,6 +27,8 @@
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-loader": "3.0.3",
