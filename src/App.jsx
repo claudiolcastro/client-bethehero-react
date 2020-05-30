@@ -1,18 +1,17 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 
-import store from './store';
+import Root from './Root';
 
 import Router from './routes';
 import './assets/scss/main.scss';
 
 function App() {
   return (
-    <Provider store={store}>
+    <Root>
       <main>
         <Router />
       </main>
-    </Provider>
+    </Root>
   );
 }
 
