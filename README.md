@@ -39,6 +39,10 @@ Run the following command in order to start the application in a development env
 
 ```yarn start```
 
+### Runing unit tests
+
+```yarn test```
+
 ## License
 
 Released in 2020.
